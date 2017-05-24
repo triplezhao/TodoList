@@ -6,9 +6,10 @@ import VueTouch from 'vue-touch';
 // load local css icon
 import './assets/iconfont/material-icons.css'
 //  load UI components
-// import MuseUI from 'muse-ui';
-// import 'muse-ui/dist/muse-ui.css';
-import 'muse-components/styles/base.less' // 加载基础的样式
+import MuseUI from 'muse-ui';
+import 'muse-ui/dist/muse-ui.css';
+Vue.use(MuseUI);
+/*import 'muse-components/styles/base.less' // 加载基础的样式
 import { row, col } from 'muse-components/grid'
 import  textField  from 'muse-components/textField'
 import  raisedButton  from 'muse-components/raisedButton'
@@ -57,7 +58,7 @@ Vue.component(radio.name, radio);
 Vue.component(subHeader.name, subHeader);
 Vue.component(icon.name, icon);
 Vue.component(menu.name, menu);
-Vue.component(menuItem.name, menuItem);
+Vue.component(menuItem.name, menuItem);*/
 
 
 import App from './App'

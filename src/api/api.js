@@ -1,7 +1,9 @@
 let AV = require('leancloud-storage');
 // hello appliction
-const APP_ID = 'qNpVPquXEti01HpThDRcqiHl-gzGzoHsz';
-const APP_KEY = 'KB8jNrxQz0i7WFCH9fYbXYtt';
+// const APP_ID = 'qNpVPquXEti01HpThDRcqiHl-gzGzoHsz';
+// const APP_KEY = 'KB8jNrxQz0i7WFCH9fYbXYtt';
+const APP_ID = '7pgKjGsrn8S1E3a1aqIHQxlX-gzGzoHsz';
+const APP_KEY = 'nsgINsUvdjDuj58e9zUKj5BQ';
 AV.init({
   appId: APP_ID,
   appKey: APP_KEY
@@ -10,19 +12,19 @@ AV.init({
 export let Todo = AV.Object.extend('Todo');
 
 /* User Operate  */
-export let requestLogin = function(loginParams) {
+export let requestLogin = function (loginParams) {
   return AV.User.logIn(loginParams.email, loginParams.password);
 }
-export let isLogedin = function() {
+export let isLogedin = function () {
   return AV.User.current() ? true : false;
 }
-export let getCurrentUser = function() {
+export let getCurrentUser = function () {
   return AV.User.current();
 }
-export let logOut = function() {
+export let logOut = function () {
   AV.User.logOut();
 }
-export let registeUser = function(userInfo) {
+export let registeUser = function (userInfo) {
   var user = new AV.User();
   user.setUsername(userInfo.username);
   user.setPassword(userInfo.password);
@@ -37,7 +39,7 @@ export let registeUser = function(userInfo) {
 
 // start up->pullTodos->update local data
 // data change -> saveToLocal -> commitTodos()
-export let AddTodoItem = function(item) {
+export let AddTodoItem = function (item) {
   var acl = new AV.ACL();
   acl.setPublicReadAccess(false);
   acl.setPublicWriteAccess(false);
@@ -49,7 +51,7 @@ export let AddTodoItem = function(item) {
   return todo.save();
 }
 
-export let SaveTodoItem = function(item) {
+export let SaveTodoItem = function (item) {
   acl.setPublicReadAccess(false);
   acl.setPublicWriteAccess(false);
   acl.setWriteAccess(AV.User.current(), true);
@@ -59,7 +61,7 @@ export let SaveTodoItem = function(item) {
   return todo.save();
 }
 
-export let LoadServerTodos = function() {
+export let LoadServerTodos = function () {
   var uid = getCurrentUser().id;
   var ownerQuery = new AV.Query('Todo');
   ownerQuery.equalTo('owner', uid);
@@ -68,17 +70,17 @@ export let LoadServerTodos = function() {
   return new AV.Query.and(ownerQuery, enableQuery).find();
 }
 
-export let addRole = function() {
+export let addRole = function () {
   var roleACL = new AV.ACL();
   roleACL.setPublicReadAccess(false);
   roleACL.setPublicWriteAccess(false);
 
-  roleACL.setWriteAccess(AV.User.current(),true);
+  roleACL.setWriteAccess(AV.User.current(), true);
 
-  var UserRole = new AV.Role('User',roleACL);
-  UserRole.save().then(function(role) {
+  var UserRole = new AV.Role('User', roleACL);
+  UserRole.save().then(function (role) {
     console.log(role);
-  },function(err) {
+  }, function (err) {
     console.log(err);
   })
 }
